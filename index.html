@@ -1,1 +1,357 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kraziman | Линкове</title>
+<meta name="description" content="Kraziman: Discord, YouTube, Twitch, Instagram и X/Twitter на едно място.">
+<meta name="theme-color" content="#130d2b">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #130d2b;
+    --panel: #1d1442;
+    --line: #3b2d7a;
+    --text: #f3efff;
+    --muted: #a99fd6;
+    --accent: #ff4d8d;
+    --gold: #ffc83d;
+    --gold-dark: #c98f0a;
+    --shadow: #0b0720;
+  }
+  * { box-sizing: border-box; }
+  html { height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100%;
+    background:
+      radial-gradient(90% 50% at 50% 0%, #2b1a6b 0%, transparent 70%),
+      var(--bg);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: "Rubik", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.5;
+    display: flex;
+    justify-content: center;
+    padding: 28px 20px 48px;
+    overflow-x: hidden;
+  }
+  main { position: relative; z-index: 1; width: 100%; max-width: 460px; text-align: center; }
 
+  /* Retro grid floor */
+  .floor {
+    position: fixed;
+    left: -50%;
+    right: -50%;
+    bottom: 0;
+    height: 45vh;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(214,107,255,.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(214,107,255,.4) 1px, transparent 1px);
+    background-size: 56px 56px;
+    transform: perspective(380px) rotateX(62deg);
+    transform-origin: 50% 100%;
+    -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+            mask-image: linear-gradient(to top, #000 0%, transparent 85%);
+    opacity: .5;
+    animation: scroll 6s linear infinite;
+  }
+  @keyframes scroll {
+    to { background-position: 0 56px, 0 0; }
+  }
+
+  /* Floating pixels */
+  .p {
+    position: fixed;
+    bottom: -12px;
+    border-radius: 1px;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 0;
+    animation: floatUp linear infinite;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: .8; }
+    90%  { opacity: .8; }
+    100% { transform: translateY(-110vh) rotate(180deg); opacity: 0; }
+  }
+
+  /* Language switch */
+  .lang {
+    display: inline-flex;
+    margin: 0 0 30px;
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--panel);
+  }
+  .lang button {
+    font: inherit;
+    font-size: .85rem;
+    font-weight: 600;
+    min-width: 52px;
+    padding: 6px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: background-color .2s, color .2s;
+  }
+  .lang button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+  .lang button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+
+  /* Title: letters drop in, then ride a slow wave */
+  h1 {
+    font-family: "Pirata One", Georgia, serif;
+    font-weight: 400;
+    font-size: clamp(3.6rem, 18vw, 5.2rem);
+    line-height: 1;
+    margin: 0 0 10px;
+    text-shadow: 0 4px 0 #6a1d57, 0 0 30px rgba(255,77,141,.5);
+  }
+  h1 span {
+    display: inline-block;
+    animation:
+      drop .7s cubic-bezier(.2,1.4,.4,1) backwards,
+      wave 3.2s ease-in-out infinite;
+    animation-delay: calc(var(--i) * 80ms), calc(1s + var(--i) * 140ms);
+  }
+  @keyframes drop {
+    from { transform: translateY(-60px) scale(.6); opacity: 0; }
+  }
+  @keyframes wave {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .tagline { margin: 0 0 34px; color: var(--muted); font-size: 1.05rem; }
+
+  /* Link cards */
+  .link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 18px 14px 14px;
+    margin-bottom: 14px;
+    border: 2px solid var(--line);
+    border-radius: 12px;
+    background: var(--panel);
+    box-shadow: 0 5px 0 var(--shadow);
+    color: var(--text);
+    text-decoration: none;
+    text-align: left;
+    overflow: hidden;
+    animation: rise .55s ease-out backwards;
+    animation-delay: calc(.5s + var(--i) * 110ms);
+    transition: transform .15s, border-color .15s, box-shadow .15s;
+  }
+  @keyframes rise {
+    from { transform: translateY(24px); opacity: 0; }
+  }
+  .link:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 0 var(--shadow); }
+  .link:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--shadow); }
+  .link:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+  .slot {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    background: var(--bg);
+    color: var(--accent);
+    transition: transform .2s;
+  }
+  .slot svg { width: 28px; height: 28px; display: block; }
+  .link:hover .slot { transform: rotate(-6deg) scale(1.08); }
+  .text { display: flex; flex-direction: column; min-width: 0; }
+  .name { font-weight: 600; font-size: 1.1rem; }
+  .sub { color: var(--muted); font-size: .9rem; }
+
+  /* Discord: the featured card */
+  .link.primary {
+    padding: 20px 20px 20px 16px;
+    margin-bottom: 26px;
+    border-color: var(--gold);
+    background: linear-gradient(135deg, #3a2a8f, #6a2fb0);
+    box-shadow: 0 6px 0 var(--gold-dark);
+  }
+  .link.primary:hover { border-color: #ffe08a; box-shadow: 0 9px 0 var(--gold-dark); }
+  .link.primary:active { box-shadow: 0 3px 0 var(--gold-dark); }
+  .link.primary .slot { width: 64px; height: 64px; border-color: var(--gold); color: var(--gold); }
+  .link.primary .slot svg { width: 36px; height: 36px; }
+  .link.primary .name {
+    font-family: "Pirata One", Georgia, serif;
+    font-weight: 400;
+    font-size: 1.9rem;
+    line-height: 1.1;
+    color: var(--gold);
+  }
+  .link.primary .sub { color: #e6dcff; }
+  .link.primary::after {
+    content: "";
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 60px;
+    left: -100px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+    transform: skewX(-20deg);
+    animation: shine 4.5s ease-in-out 1.6s infinite;
+  }
+  @keyframes shine {
+    0%   { left: -100px; }
+    35%, 100% { left: calc(100% + 100px); }
+  }
+
+  footer { margin-top: 34px; color: var(--muted); font-size: .85rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .p { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="floor" aria-hidden="true"></div>
+
+<main>
+  <div class="lang" role="group" aria-label="Language / Език">
+    <button type="button" data-lang="bg" aria-pressed="true">БГ</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+
+  <h1 aria-label="Kraziman">
+    <span style="--i:0" aria-hidden="true">K</span><span style="--i:1" aria-hidden="true">r</span><span style="--i:2" aria-hidden="true">a</span><span style="--i:3" aria-hidden="true">z</span><span style="--i:4" aria-hidden="true">i</span><span style="--i:5" aria-hidden="true">m</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">n</span>
+  </h1>
+  <p class="tagline" data-i18n="tagline">Намери ме навсякъде.</p>
+
+  <!-- Discord -->
+  <a class="link primary" style="--i:0" href="https://discord.underworldcrusaders.org">
+    <span class="slot" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.2 5.2C8 4.4 10 4 12 4s4 .4 5.8 1.2c1.6 2.3 2.7 5.5 3.1 9.6-1.5 1.3-3.2 2.2-5 2.7l-1-1.7c.5-.2 1-.4 1.4-.7l-.3-.3c-2.700 1.200-5.400 1.200-8.100 0l-.3.300c.4.300.9.500 1.400.700l-1 1.700c-1.800-.5-3.500-1.400-5-2.700.4-4.100 1.500-7.300 3.100-9.600ZM9.200 10.200a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Zm5.600 0a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Z"/></svg>
+    </span>
+    <span class="text">
+      <span class="name">Underworld Crusaders</span>
+      <span class="sub" data-i18n="discord">Влез в моя Discord сървър</span>
+    </span>
+  </a>
+
+  <!-- YouTube -->
+  <a class="link" style="--i:1" href="https://www.youtube.com/@NotKraziman">
+    <span class="slot" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.500 5.500h15A3.500 3.500 0 0 1 23 9v6a3.500 3.500 0 0 1-3.500 3.500h-15A3.500 3.500 0 0 1 1 15V9a3.500 3.500 0 0 1 3.500-3.500ZM9.800 8.700v6.600l5.700-3.300-5.700-3.300Z"/></svg>
+    </span>
+    <span class="text">
+      <span class="name">YouTube</span>
+      <span class="sub" data-i18n="youtube">Видеа</span>
+    </span>
+  </a>
+
+  <!-- Twitch -->
+  <a class="link" style="--i:2" href="https://www.twitch.tv/notkraziman">
+    <span class="slot" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3.500 2h18v13l-5 5h-4l-3 3v-3h-6V2Zm3 2.500v12h4.500v2.500l2.500-2.500h4.500l3-3v-9h-14.500ZM11 7h2v5h-2V7Zm5 0h2v5h-2V7Z"/></svg>
+    </span>
+    <span class="text">
+      <span class="name">Twitch</span>
+      <span class="sub" data-i18n="twitch">Стриймове на живо</span>
+    </span>
+  </a>
+
+  <!-- Instagram -->
+  <a class="link" style="--i:3" href="https://www.instagram.com/notkraziman">
+    <span class="slot" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.500"/><circle cx="12" cy="12" r="4.200"/><circle cx="17.300" cy="6.700" r=".6" fill="currentColor"/></svg>
+    </span>
+    <span class="text">
+      <span class="name">Instagram</span>
+      <span class="sub" data-i18n="instagram">Снимки</span>
+    </span>
+  </a>
+
+  <!-- X / Twitter -->
+  <a class="link" style="--i:4" href="https://x.com/notkraziman">
+    <span class="slot" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.500 3.500h5l12 17h-5l-12-17Z"/><path d="M19.800 3.500 4.200 20.500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    </span>
+    <span class="text">
+      <span class="name">X/Twitter</span>
+      <span class="sub" data-i18n="x">Новини</span>
+    </span>
+  </a>
+
+  <footer>&copy; 2026 Underworld Crusaders / Kraziman</footer>
+</main>
+
+<script>
+  var STRINGS = {
+    bg: {
+      title: "Kraziman | Линкове",
+      tagline: "Намери ме навсякъде.",
+      discord: "Влез в моя Discord сървър",
+      youtube: "Видеа",
+      twitch: "Стриймове на живо",
+      instagram: "Снимки",
+      x: "Новини"
+    },
+    en: {
+      title: "Kraziman | Links",
+      tagline: "Find me everywhere.",
+      discord: "Join my Discord server",
+      youtube: "Videos",
+      twitch: "Live streams",
+      instagram: "Photos",
+      x: "Updates"
+    }
+  };
+
+  function setLang(lang) {
+    var dict = STRINGS[lang] || STRINGS.bg;
+    document.documentElement.lang = lang;
+    document.title = dict.title;
+    document.querySelectorAll("[data-i18n]").forEach(function (el) {
+      el.textContent = dict[el.getAttribute("data-i18n")];
+    });
+    document.querySelectorAll(".lang button").forEach(function (btn) {
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+    try { localStorage.setItem("lang", lang); } catch (e) {}
+  }
+
+  document.querySelectorAll(".lang button").forEach(function (btn) {
+    btn.addEventListener("click", function () { setLang(btn.getAttribute("data-lang")); });
+  });
+
+  // Bulgarian is the default; remember a visitor's choice
+  var saved = "bg";
+  try { saved = localStorage.getItem("lang") || "bg"; } catch (e) {}
+  setLang(saved);
+
+  // Floating pixels in the background
+  if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var colors = ["#d66bff", "#ff4d8d", "#ffc83d"];
+    for (var i = 0; i < 22; i++) {
+      var d = document.createElement("div");
+      var size = 3 + Math.random() * 4;
+      d.className = "p";
+      d.style.left = Math.random() * 100 + "vw";
+      d.style.width = d.style.height = size + "px";
+      d.style.background = colors[i % colors.length];
+      d.style.animationDuration = 9 + Math.random() * 10 + "s";
+      d.style.animationDelay = -Math.random() * 18 + "s";
+      document.body.appendChild(d);
+    }
+  }
+</script>
+</body>
+</html>
