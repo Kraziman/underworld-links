@@ -108,9 +108,6 @@
   .lang button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
   .lang button:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
 
-  /* Avatar (desktop only) */
-  .avatar { display: none; }
-
   /* Title: letters drop in, then ride a slow wave */
   h1 {
     font-family: "Pirata One", Georgia, serif;
@@ -260,48 +257,33 @@
   .btn:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
   .btn.go { background: var(--accent); border-color: var(--accent); color: var(--bg); box-shadow: 0 4px 0 #6f4fa8; }
 
-  /* Wide screens: two columns that fit in one screen */
+  /* Wide screens: everything centered in one column */
   @media (min-width: 900px) {
     body { padding: 2rem 2.5rem; }
     main {
-      max-width: 66rem;
+      max-width: 48rem;
       min-height: calc(100vh - 4rem);
       min-height: calc(100dvh - 4rem);
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: 1fr auto;
-      column-gap: clamp(2rem, 6vw, 5rem);
-      align-items: center;
+      grid-template-columns: 1fr;
+      align-content: center;
     }
     .lang { position: fixed; top: 1.25rem; right: 1.5rem; margin: 0; z-index: 2; }
-    .hero  { grid-column: 1; grid-row: 1; }
-    .links { grid-column: 2; grid-row: 1; }
-    footer { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
-
-    .avatar {
-      display: block;
-      width: min(17rem, 34vh);
-      height: auto;
-      aspect-ratio: 1;
-      object-fit: cover;
-      margin: 0 auto 1.4rem;
-      border-radius: 50%;
-      border: 4px solid var(--accent);
-      box-shadow: 0 0 0 6px var(--panel), 0 0 50px rgba(172,130,233,.5);
-      animation: pop .8s cubic-bezier(.2,1.4,.4,1) backwards, bob 5s ease-in-out 1s infinite;
-    }
-    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
-    h1 { font-size: clamp(3.4rem, min(7vw, 13vh), 6.5rem); }
-    .tagline { margin-bottom: 0; font-size: 1.15rem; }
-
-    .more { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .hero { margin-bottom: 2.2rem; }
+    h1 { font-size: clamp(3.6rem, min(9vw, 16vh), 7.5rem); margin-bottom: .6rem; }
+    .tagline { margin-bottom: 0; font-size: 1.25rem; }
+    .link.primary { justify-content: center; margin-bottom: 1rem; }
+    .more { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
     .more .link {
       flex-direction: column;
-      align-items: flex-start;
-      gap: .75rem;
+      align-items: center;
+      text-align: center;
+      gap: .6rem;
       margin-bottom: 0;
-      padding: 1rem;
+      padding: 1rem .6rem;
     }
+    .more .text { align-items: center; }
+    footer { margin-top: 2rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -320,7 +302,6 @@
   </div>
 
   <section class="hero">
-    <img class="avatar" src="avatar.png" alt="Kraziman: a black knight helmet with headphones" width="512" height="512" onerror="this.style.display='none'">
     <h1 aria-label="Kraziman">
       <span style="--i:0" aria-hidden="true">K</span><span style="--i:1" aria-hidden="true">r</span><span style="--i:2" aria-hidden="true">a</span><span style="--i:3" aria-hidden="true">z</span><span style="--i:4" aria-hidden="true">i</span><span style="--i:5" aria-hidden="true">m</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">n</span>
     </h1>
