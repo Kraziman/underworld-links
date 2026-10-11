@@ -281,7 +281,9 @@
     .avatar {
       display: block;
       width: min(17rem, 34vh);
+      height: auto;
       aspect-ratio: 1;
+      object-fit: cover;
       margin: 0 auto 1.4rem;
       border-radius: 50%;
       border: 4px solid var(--accent);
@@ -318,7 +320,7 @@
   </div>
 
   <section class="hero">
-    <img class="avatar" src="avatar.png" alt="Kraziman: a black knight helmet with headphones" width="512" height="512">
+    <img class="avatar" src="avatar.png" alt="Kraziman: a black knight helmet with headphones" width="512" height="512" onerror="this.style.display='none'">
     <h1 aria-label="Kraziman">
       <span style="--i:0" aria-hidden="true">K</span><span style="--i:1" aria-hidden="true">r</span><span style="--i:2" aria-hidden="true">a</span><span style="--i:3" aria-hidden="true">z</span><span style="--i:4" aria-hidden="true">i</span><span style="--i:5" aria-hidden="true">m</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">n</span>
     </h1>
