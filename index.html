@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kraziman | Линкове</title>
 <meta name="description" content="Kraziman: Discord, YouTube, Twitch, Instagram и X/Twitter на едно място.">
-<meta name="theme-color" content="#130d2b">
+<meta name="theme-color" content="#141216">
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,23 +13,25 @@
 <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Rubik:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #130d2b;
-    --panel: #1d1442;
-    --line: #3b2d7a;
-    --text: #f3efff;
-    --muted: #a99fd6;
-    --accent: #ff4d8d;
-    --gold: #ffc83d;
-    --gold-dark: #c98f0a;
-    --shadow: #0b0720;
+    --bg: #141216;
+    --panel: #27232b;
+    --line: #443c4d;
+    --text: #d8cab8;
+    --muted: #8a8190;
+    --muted-2: #a79eaf;
+    --accent: #ac82e9;
+    --red: #ff5555;
+    --red-dark: #a83232;
+    --shadow: #0c0b0e;
   }
   * { box-sizing: border-box; }
-  html { height: 100%; }
+  /* The whole page is sized in rem, and rem grows gently with the screen */
+  html { height: 100%; font-size: clamp(16px, 0.5vw + 9px, 20px); }
   body {
     margin: 0;
     min-height: 100%;
     background:
-      radial-gradient(90% 50% at 50% 0%, #2b1a6b 0%, transparent 70%),
+      radial-gradient(90% 50% at 50% 0%, rgba(172,130,233,.22) 0%, transparent 70%),
       var(--bg);
     background-attachment: fixed;
     color: var(--text);
@@ -37,10 +39,10 @@
     line-height: 1.5;
     display: flex;
     justify-content: center;
-    padding: 28px 20px 48px;
+    padding: 1.75rem 1.25rem 3rem;
     overflow-x: hidden;
   }
-  main { position: relative; z-index: 1; width: 100%; max-width: 460px; text-align: center; }
+  main { position: relative; z-index: 1; width: 100%; max-width: 28.75rem; text-align: center; }
 
   /* Retro grid floor */
   .floor {
@@ -52,19 +54,17 @@
     z-index: 0;
     pointer-events: none;
     background-image:
-      linear-gradient(rgba(214,107,255,.4) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(214,107,255,.4) 1px, transparent 1px);
+      linear-gradient(rgba(172,130,233,.45) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(172,130,233,.45) 1px, transparent 1px);
     background-size: 56px 56px;
     transform: perspective(380px) rotateX(62deg);
     transform-origin: 50% 100%;
     -webkit-mask-image: linear-gradient(to top, #000 0%, transparent 85%);
             mask-image: linear-gradient(to top, #000 0%, transparent 85%);
-    opacity: .5;
+    opacity: .6;
     animation: scroll 6s linear infinite;
   }
-  @keyframes scroll {
-    to { background-position: 0 56px, 0 0; }
-  }
+  @keyframes scroll { to { background-position: 0 56px, 0 0; } }
 
   /* Floating pixels */
   .p {
@@ -86,7 +86,7 @@
   /* Language switch */
   .lang {
     display: inline-flex;
-    margin: 0 0 30px;
+    margin: 0 0 1.9rem;
     padding: 3px;
     border: 1px solid var(--line);
     border-radius: 999px;
@@ -96,17 +96,20 @@
     font: inherit;
     font-size: .85rem;
     font-weight: 600;
-    min-width: 52px;
-    padding: 6px 14px;
+    min-width: 3.25rem;
+    padding: .4rem .9rem;
     border: 0;
     border-radius: 999px;
     background: transparent;
-    color: var(--muted);
+    color: var(--muted-2);
     cursor: pointer;
     transition: background-color .2s, color .2s;
   }
-  .lang button[aria-pressed="true"] { background: var(--accent); color: #fff; }
-  .lang button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .lang button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+  .lang button:focus-visible { outline: 3px solid var(--text); outline-offset: 2px; }
+
+  /* Avatar (desktop only) */
+  .avatar { display: none; }
 
   /* Title: letters drop in, then ride a slow wave */
   h1 {
@@ -114,8 +117,9 @@
     font-weight: 400;
     font-size: clamp(3.6rem, 18vw, 5.2rem);
     line-height: 1;
-    margin: 0 0 10px;
-    text-shadow: 0 4px 0 #6a1d57, 0 0 30px rgba(255,77,141,.5);
+    margin: 0 0 .6rem;
+    color: var(--text);
+    text-shadow: 0 .06em 0 #4a3578, 0 0 30px rgba(172,130,233,.5);
   }
   h1 span {
     display: inline-block;
@@ -124,25 +128,20 @@
       wave 3.2s ease-in-out infinite;
     animation-delay: calc(var(--i) * 80ms), calc(1s + var(--i) * 140ms);
   }
-  @keyframes drop {
-    from { transform: translateY(-60px) scale(.6); opacity: 0; }
-  }
-  @keyframes wave {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-6px); }
-  }
-  .tagline { margin: 0 0 34px; color: var(--muted); font-size: 1.05rem; }
+  @keyframes drop { from { transform: translateY(-60px) scale(.6); opacity: 0; } }
+  @keyframes wave { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  .tagline { margin: 0 0 2.1rem; color: var(--muted-2); font-size: 1.05rem; }
 
   /* Link cards */
   .link {
     position: relative;
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 14px 18px 14px 14px;
-    margin-bottom: 14px;
+    gap: 1rem;
+    padding: .9rem 1.1rem .9rem .9rem;
+    margin-bottom: .9rem;
     border: 2px solid var(--line);
-    border-radius: 12px;
+    border-radius: .75rem;
     background: var(--panel);
     box-shadow: 0 5px 0 var(--shadow);
     color: var(--text);
@@ -153,67 +152,155 @@
     animation-delay: calc(.5s + var(--i) * 110ms);
     transition: transform .15s, border-color .15s, box-shadow .15s;
   }
-  @keyframes rise {
-    from { transform: translateY(24px); opacity: 0; }
-  }
+  @keyframes rise { from { transform: translateY(24px); opacity: 0; } }
   .link:hover { transform: translateY(-3px); border-color: var(--accent); box-shadow: 0 8px 0 var(--shadow); }
   .link:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--shadow); }
-  .link:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; }
+  .link:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
 
   .slot {
     flex: none;
-    width: 52px;
-    height: 52px;
+    width: 3.25rem;
+    height: 3.25rem;
     display: grid;
     place-items: center;
     border: 2px solid var(--accent);
-    border-radius: 10px;
+    border-radius: .65rem;
     background: var(--bg);
     color: var(--accent);
     transition: transform .2s;
   }
-  .slot svg { width: 28px; height: 28px; display: block; }
+  .slot svg { width: 1.75rem; height: 1.75rem; display: block; }
   .link:hover .slot { transform: rotate(-6deg) scale(1.08); }
   .text { display: flex; flex-direction: column; min-width: 0; }
   .name { font-weight: 600; font-size: 1.1rem; }
-  .sub { color: var(--muted); font-size: .9rem; }
+  .sub { color: var(--muted-2); font-size: .9rem; }
 
   /* Discord: the featured card */
   .link.primary {
-    padding: 20px 20px 20px 16px;
-    margin-bottom: 26px;
-    border-color: var(--gold);
-    background: linear-gradient(135deg, #3a2a8f, #6a2fb0);
-    box-shadow: 0 6px 0 var(--gold-dark);
+    padding: 1.25rem 1.25rem 1.25rem 1rem;
+    margin-bottom: 1.6rem;
+    border-color: var(--red);
+    background: linear-gradient(135deg, #3c2f5c, var(--panel));
+    box-shadow: 0 6px 0 var(--red-dark);
   }
-  .link.primary:hover { border-color: #ffe08a; box-shadow: 0 9px 0 var(--gold-dark); }
-  .link.primary:active { box-shadow: 0 3px 0 var(--gold-dark); }
-  .link.primary .slot { width: 64px; height: 64px; border-color: var(--gold); color: var(--gold); }
-  .link.primary .slot svg { width: 36px; height: 36px; }
+  .link.primary:hover { border-color: #ff8a8a; box-shadow: 0 9px 0 var(--red-dark); }
+  .link.primary:active { box-shadow: 0 3px 0 var(--red-dark); }
+  .link.primary .slot { width: 4rem; height: 4rem; border-color: var(--red); color: var(--red); }
+  .link.primary .slot svg { width: 2.25rem; height: 2.25rem; }
   .link.primary .name {
     font-family: "Pirata One", Georgia, serif;
     font-weight: 400;
     font-size: 1.9rem;
     line-height: 1.1;
-    color: var(--gold);
+    color: var(--red);
   }
-  .link.primary .sub { color: #e6dcff; }
+  .link.primary .sub { color: var(--text); }
   .link.primary::after {
     content: "";
     position: absolute;
     top: 0; bottom: 0;
     width: 60px;
     left: -100px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,.28), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
     transform: skewX(-20deg);
     animation: shine 4.5s ease-in-out 1.6s infinite;
   }
-  @keyframes shine {
-    0%   { left: -100px; }
-    35%, 100% { left: calc(100% + 100px); }
-  }
+  @keyframes shine { 0% { left: -100px; } 35%, 100% { left: calc(100% + 100px); } }
 
-  footer { margin-top: 34px; color: var(--muted); font-size: .85rem; }
+  footer { margin-top: 2.1rem; color: var(--muted-2); font-size: .85rem; }
+
+  /* Leave confirmation */
+  dialog {
+    width: min(92vw, 26rem);
+    padding: 0;
+    border: 2px solid var(--accent);
+    border-radius: .9rem;
+    background: var(--panel);
+    color: var(--text);
+    box-shadow: 0 .5rem 0 var(--shadow), 0 0 40px rgba(172,130,233,.3);
+  }
+  dialog[open] { animation: pop .25s cubic-bezier(.2,1.4,.4,1); }
+  @keyframes pop { from { transform: scale(.88); opacity: 0; } }
+  dialog::backdrop { background: rgba(20,18,22,.8); backdrop-filter: blur(3px); }
+  .box { padding: 1.6rem 1.5rem 1.5rem; text-align: center; }
+  .box h2 {
+    margin: 0 0 .5rem;
+    font-family: "Pirata One", Georgia, serif;
+    font-weight: 400;
+    font-size: 2rem;
+    line-height: 1.1;
+    color: var(--red);
+  }
+  .box p { margin: 0 0 .5rem; }
+  .box .url {
+    margin: 0 0 1.4rem;
+    padding: .45rem .7rem;
+    border-radius: .5rem;
+    background: var(--bg);
+    color: var(--muted-2);
+    font-size: .85rem;
+    word-break: break-all;
+  }
+  .actions { display: flex; gap: .75rem; }
+  .btn {
+    flex: 1;
+    font: inherit;
+    font-weight: 600;
+    padding: .7rem 1rem;
+    border: 2px solid var(--line);
+    border-radius: .65rem;
+    background: transparent;
+    color: var(--text);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform .15s, border-color .15s;
+  }
+  .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .btn:focus-visible { outline: 3px solid var(--text); outline-offset: 3px; }
+  .btn.go { background: var(--accent); border-color: var(--accent); color: var(--bg); box-shadow: 0 4px 0 #6f4fa8; }
+
+  /* Wide screens: two columns that fit in one screen */
+  @media (min-width: 900px) {
+    body { padding: 2rem 2.5rem; }
+    main {
+      max-width: 66rem;
+      min-height: calc(100vh - 4rem);
+      min-height: calc(100dvh - 4rem);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr auto;
+      column-gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+    .lang { position: fixed; top: 1.25rem; right: 1.5rem; margin: 0; z-index: 2; }
+    .hero  { grid-column: 1; grid-row: 1; }
+    .links { grid-column: 2; grid-row: 1; }
+    footer { grid-column: 1 / -1; grid-row: 2; margin-top: 0; }
+
+    .avatar {
+      display: block;
+      width: min(17rem, 34vh);
+      aspect-ratio: 1;
+      margin: 0 auto 1.4rem;
+      border-radius: 50%;
+      border: 4px solid var(--accent);
+      box-shadow: 0 0 0 6px var(--panel), 0 0 50px rgba(172,130,233,.5);
+      animation: pop .8s cubic-bezier(.2,1.4,.4,1) backwards, bob 5s ease-in-out 1s infinite;
+    }
+    @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+    h1 { font-size: clamp(3.4rem, min(7vw, 13vh), 6.5rem); }
+    .tagline { margin-bottom: 0; font-size: 1.15rem; }
+
+    .more { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .more .link {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: .75rem;
+      margin-bottom: 0;
+      padding: 1rem;
+    }
+  }
 
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -230,68 +317,88 @@
     <button type="button" data-lang="en" aria-pressed="false">EN</button>
   </div>
 
-  <h1 aria-label="Kraziman">
-    <span style="--i:0" aria-hidden="true">K</span><span style="--i:1" aria-hidden="true">r</span><span style="--i:2" aria-hidden="true">a</span><span style="--i:3" aria-hidden="true">z</span><span style="--i:4" aria-hidden="true">i</span><span style="--i:5" aria-hidden="true">m</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">n</span>
-  </h1>
-  <p class="tagline" data-i18n="tagline">Намери ме навсякъде.</p>
+  <section class="hero">
+    <img class="avatar" src="avatar.png" alt="Kraziman: a black knight helmet with headphones" width="512" height="512">
+    <h1 aria-label="Kraziman">
+      <span style="--i:0" aria-hidden="true">K</span><span style="--i:1" aria-hidden="true">r</span><span style="--i:2" aria-hidden="true">a</span><span style="--i:3" aria-hidden="true">z</span><span style="--i:4" aria-hidden="true">i</span><span style="--i:5" aria-hidden="true">m</span><span style="--i:6" aria-hidden="true">a</span><span style="--i:7" aria-hidden="true">n</span>
+    </h1>
+    <p class="tagline" data-i18n="tagline">Намери ме навсякъде.</p>
+  </section>
 
-  <!-- Discord -->
-  <a class="link primary" style="--i:0" href="https://discord.underworldcrusaders.org">
-    <span class="slot" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.2 5.2C8 4.4 10 4 12 4s4 .4 5.8 1.2c1.6 2.3 2.7 5.5 3.1 9.6-1.5 1.3-3.2 2.2-5 2.7l-1-1.7c.5-.2 1-.4 1.4-.7l-.3-.3c-2.700 1.200-5.400 1.200-8.100 0l-.3.300c.4.300.9.500 1.400.700l-1 1.700c-1.800-.5-3.500-1.400-5-2.700.4-4.100 1.500-7.300 3.100-9.600ZM9.200 10.200a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Zm5.600 0a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Z"/></svg>
-    </span>
-    <span class="text">
-      <span class="name">Underworld Crusaders</span>
-      <span class="sub" data-i18n="discord">Влез в моя Discord сървър</span>
-    </span>
-  </a>
+  <nav class="links">
+    <!-- Discord -->
+    <a class="link primary" style="--i:0" data-site="Discord" href="https://discord.underworldcrusaders.org">
+      <span class="slot" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M6.2 5.2C8 4.4 10 4 12 4s4 .4 5.8 1.2c1.6 2.3 2.7 5.5 3.1 9.6-1.5 1.3-3.2 2.2-5 2.7l-1-1.7c.5-.2 1-.4 1.4-.7l-.3-.3c-2.700 1.200-5.400 1.200-8.100 0l-.3.300c.4.300.9.500 1.400.700l-1 1.700c-1.800-.5-3.500-1.400-5-2.700.4-4.100 1.500-7.300 3.100-9.600ZM9.200 10.200a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Zm5.600 0a1.700 1.900 0 1 0 0 3.800 1.700 1.900 0 0 0 0-3.800Z"/></svg>
+      </span>
+      <span class="text">
+        <span class="name">Underworld Crusaders</span>
+        <span class="sub" data-i18n="discord">Влез в моя Discord сървър</span>
+      </span>
+    </a>
 
-  <!-- YouTube -->
-  <a class="link" style="--i:1" href="https://www.youtube.com/@NotKraziman">
-    <span class="slot" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.500 5.500h15A3.500 3.500 0 0 1 23 9v6a3.500 3.500 0 0 1-3.500 3.500h-15A3.500 3.500 0 0 1 1 15V9a3.500 3.500 0 0 1 3.500-3.500ZM9.800 8.700v6.600l5.700-3.300-5.700-3.300Z"/></svg>
-    </span>
-    <span class="text">
-      <span class="name">YouTube</span>
-      <span class="sub" data-i18n="youtube">Видеа</span>
-    </span>
-  </a>
+    <div class="more">
+      <!-- YouTube -->
+      <a class="link" style="--i:1" data-site="YouTube" href="https://www.youtube.com/@NotKraziman">
+        <span class="slot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M4.500 5.500h15A3.500 3.500 0 0 1 23 9v6a3.500 3.500 0 0 1-3.500 3.500h-15A3.500 3.500 0 0 1 1 15V9a3.500 3.500 0 0 1 3.500-3.500ZM9.800 8.700v6.600l5.700-3.300-5.700-3.300Z"/></svg>
+        </span>
+        <span class="text">
+          <span class="name">YouTube</span>
+          <span class="sub" data-i18n="youtube">Видеа</span>
+        </span>
+      </a>
 
-  <!-- Twitch -->
-  <a class="link" style="--i:2" href="https://www.twitch.tv/notkraziman">
-    <span class="slot" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3.500 2h18v13l-5 5h-4l-3 3v-3h-6V2Zm3 2.500v12h4.500v2.500l2.500-2.500h4.500l3-3v-9h-14.500ZM11 7h2v5h-2V7Zm5 0h2v5h-2V7Z"/></svg>
-    </span>
-    <span class="text">
-      <span class="name">Twitch</span>
-      <span class="sub" data-i18n="twitch">Стриймове на живо</span>
-    </span>
-  </a>
+      <!-- Twitch -->
+      <a class="link" style="--i:2" data-site="Twitch" href="https://www.twitch.tv/notkraziman">
+        <span class="slot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M3.500 2h18v13l-5 5h-4l-3 3v-3h-6V2Zm3 2.500v12h4.500v2.500l2.500-2.500h4.500l3-3v-9h-14.500ZM11 7h2v5h-2V7Zm5 0h2v5h-2V7Z"/></svg>
+        </span>
+        <span class="text">
+          <span class="name">Twitch</span>
+          <span class="sub" data-i18n="twitch">Стриймове на живо</span>
+        </span>
+      </a>
 
-  <!-- Instagram -->
-  <a class="link" style="--i:3" href="https://www.instagram.com/notkraziman">
-    <span class="slot" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.500"/><circle cx="12" cy="12" r="4.200"/><circle cx="17.300" cy="6.700" r=".6" fill="currentColor"/></svg>
-    </span>
-    <span class="text">
-      <span class="name">Instagram</span>
-      <span class="sub" data-i18n="instagram">Снимки</span>
-    </span>
-  </a>
+      <!-- Instagram -->
+      <a class="link" style="--i:3" data-site="Instagram" href="https://www.instagram.com/notkraziman">
+        <span class="slot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="5.500"/><circle cx="12" cy="12" r="4.200"/><circle cx="17.300" cy="6.700" r=".6" fill="currentColor"/></svg>
+        </span>
+        <span class="text">
+          <span class="name">Instagram</span>
+          <span class="sub" data-i18n="instagram">Снимки</span>
+        </span>
+      </a>
 
-  <!-- X / Twitter -->
-  <a class="link" style="--i:4" href="https://x.com/notkraziman">
-    <span class="slot" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.500 3.500h5l12 17h-5l-12-17Z"/><path d="M19.800 3.500 4.200 20.500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-    </span>
-    <span class="text">
-      <span class="name">X/Twitter</span>
-      <span class="sub" data-i18n="x">Новини</span>
-    </span>
-  </a>
+      <!-- X / Twitter -->
+      <a class="link" style="--i:4" data-site="X/Twitter" href="https://x.com/notkraziman">
+        <span class="slot" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.500 3.500h5l12 17h-5l-12-17Z"/><path d="M19.800 3.500 4.200 20.500" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <span class="text">
+          <span class="name">X/Twitter</span>
+          <span class="sub" data-i18n="x">Новини</span>
+        </span>
+      </a>
+    </div>
+  </nav>
 
   <footer>&copy; 2026 Underworld Crusaders / Kraziman</footer>
 </main>
+
+<!-- Leave confirmation -->
+<dialog id="confirm" aria-labelledby="c-title">
+  <div class="box">
+    <h2 id="c-title" data-i18n="cTitle">Напускаш страницата</h2>
+    <p id="c-body"></p>
+    <p class="url" id="c-url"></p>
+    <div class="actions">
+      <button type="button" class="btn" id="c-cancel" data-i18n="cCancel">Отказ</button>
+      <a class="btn go" id="c-go" target="_blank" rel="noopener noreferrer" data-i18n="cGo">Продължи</a>
+    </div>
+  </div>
+</dialog>
 
 <script>
   var STRINGS = {
@@ -302,7 +409,11 @@
       youtube: "Видеа",
       twitch: "Стриймове на живо",
       instagram: "Снимки",
-      x: "Новини"
+      x: "Новини",
+      cTitle: "Напускаш страницата",
+      cBody: "Ще отвориш {site} в нов раздел.",
+      cGo: "Продължи",
+      cCancel: "Отказ"
     },
     en: {
       title: "Kraziman | Links",
@@ -311,21 +422,36 @@
       youtube: "Videos",
       twitch: "Live streams",
       instagram: "Photos",
-      x: "Updates"
+      x: "Updates",
+      cTitle: "Leaving this page",
+      cBody: "You're about to open {site} in a new tab.",
+      cGo: "Continue",
+      cCancel: "Cancel"
     }
   };
 
+  var currentLang = "bg";
+  var currentSite = "";
+  var dlg = document.getElementById("confirm");
+
+  function renderDialogBody() {
+    document.getElementById("c-body").textContent =
+      STRINGS[currentLang].cBody.replace("{site}", currentSite);
+  }
+
   function setLang(lang) {
     var dict = STRINGS[lang] || STRINGS.bg;
-    document.documentElement.lang = lang;
+    currentLang = STRINGS[lang] ? lang : "bg";
+    document.documentElement.lang = currentLang;
     document.title = dict.title;
     document.querySelectorAll("[data-i18n]").forEach(function (el) {
       el.textContent = dict[el.getAttribute("data-i18n")];
     });
     document.querySelectorAll(".lang button").forEach(function (btn) {
-      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === lang ? "true" : "false");
+      btn.setAttribute("aria-pressed", btn.getAttribute("data-lang") === currentLang ? "true" : "false");
     });
-    try { localStorage.setItem("lang", lang); } catch (e) {}
+    if (currentSite) renderDialogBody();
+    try { localStorage.setItem("lang", currentLang); } catch (e) {}
   }
 
   document.querySelectorAll(".lang button").forEach(function (btn) {
@@ -337,9 +463,29 @@
   try { saved = localStorage.getItem("lang") || "bg"; } catch (e) {}
   setLang(saved);
 
+  // Ask before leaving. Ctrl/Cmd/Shift-click and browsers without <dialog> go straight through.
+  document.querySelectorAll(".link").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      if (e.button !== 0 || e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
+      if (typeof dlg.showModal !== "function") return;
+      e.preventDefault();
+      currentSite = a.getAttribute("data-site");
+      renderDialogBody();
+      document.getElementById("c-url").textContent = a.href.replace(/^https?:\/\//, "");
+      document.getElementById("c-go").href = a.href;
+      dlg.showModal();
+      document.getElementById("c-go").focus();
+    });
+  });
+  document.getElementById("c-cancel").addEventListener("click", function () { dlg.close(); });
+  document.getElementById("c-go").addEventListener("click", function () {
+    setTimeout(function () { dlg.close(); }, 0);
+  });
+  dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+
   // Floating pixels in the background
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var colors = ["#d66bff", "#ff4d8d", "#ffc83d"];
+    var colors = ["#ac82e9", "#ff5555", "#d8cab8"];
     for (var i = 0; i < 22; i++) {
       var d = document.createElement("div");
       var size = 3 + Math.random() * 4;
